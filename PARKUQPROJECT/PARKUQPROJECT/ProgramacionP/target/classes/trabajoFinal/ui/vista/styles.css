@@ -1,0 +1,211 @@
+/* Dark Mode Premium Theme for ParkUQ */
+
+.root {
+    -fx-background-color: #050505;
+    -fx-font-family: "Segoe UI Semibold", "Poppins", "Urbanist", sans-serif;
+    -fx-text-fill: #E0E0E0;
+}
+
+/* Etiquetas generales */
+.label {
+    -fx-text-fill: #E0E0E0;
+}
+
+.titulo-principal {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #007bff;
+}
+
+.subtitulo {
+    -fx-font-size: 14px;
+    -fx-text-fill: #A0A0A0;
+}
+
+.titulo-panel {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #007bff;
+}
+
+.titulo-seccion {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E0E0E0;
+}
+
+/* Paneles y contenedores */
+.panel-oscuro {
+    -fx-background-color: #001f3f;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+}
+
+.top-bar {
+    -fx-background-color: #001f3f;
+    -fx-padding: 10 15 10 15;
+    -fx-border-color: transparent transparent #007bff transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-background-radius: 12;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.button:pressed {
+    -fx-background-color: #004085;
+}
+
+.btn-peligro {
+    -fx-background-color: #C62828;
+}
+
+.btn-peligro:hover {
+    -fx-background-color: #b71c1c;
+}
+
+.btn-secundario {
+    -fx-background-color: #333333;
+}
+
+.btn-secundario:hover {
+    -fx-background-color: #444444;
+}
+
+.btn-exito {
+    -fx-background-color: #2E7D32;
+}
+
+.btn-exito:hover {
+    -fx-background-color: #1b5e20;
+}
+
+/* Campos de texto y ComboBox */
+.text-field, .password-field, .combo-box {
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #333333;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 5 10 5 10;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: #007bff;
+    -fx-background-color: #262626;
+}
+
+/* Area de texto (Reportes/Recibos) */
+.text-area {
+    -fx-control-inner-background: #1A1A1A;
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #333333;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-family: monospace;
+    -fx-font-size: 13px;
+}
+
+.text-area .content {
+    -fx-background-color: #1A1A1A;
+}
+
+/* TabPane y Pestañas */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #050505;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #1A1A1A;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #001f3f;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #333333;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 13px;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #007bff;
+    -fx-font-weight: bold;
+}
+
+/* Tablas (Zebra Striping) */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #333333;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #001f3f;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.table-row-cell {
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: #E0E0E0;
+    -fx-cell-size: 35px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #111111;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #001f3f;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #0056b3;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #E0E0E0;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10 0 10;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+/* Mensajes de error/éxito */
+.mensaje-error {
+    -fx-text-fill: #FF5252;
+    -fx-font-size: 12px;
+}
+
+.mensaje-info {
+    -fx-text-fill: #007bff;
+    -fx-font-size: 12px;
+}

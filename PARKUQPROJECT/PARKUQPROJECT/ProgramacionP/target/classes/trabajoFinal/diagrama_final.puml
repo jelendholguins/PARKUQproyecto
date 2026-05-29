@@ -1,0 +1,277 @@
+@startuml ParkUQ_Final
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+skinparam backgroundColor white
+skinparam classBackgroundColor #FAFAFA
+skinparam classBorderColor #555555
+skinparam arrowColor #333333
+
+' ============================================================
+'  ENUMERACIONES
+' ============================================================
+
+enum TipoVehiculo {
+    CARRO
+    MOTO
+    BICICLETA
+}
+
+enum TipoEspacio {
+    CARRO
+    MOTO
+    BICICLETA
+}
+
+enum EstadoEspacio {
+    DISPONIBLE
+    OCUPADO
+    FUERA_DE_SERVICIO
+}
+
+enum EstadoVehiculo {
+    DENTRO
+    SALIO
+}
+
+enum TipoUsuario {
+    ESTUDIANTE
+    DOCENTE
+    ADMINISTRATIVO
+    VISITANTE
+}
+
+enum RolSistema {
+    OPERADOR
+    ADMINISTRADOR
+}
+
+' ============================================================
+'  JERARQUÍA DE VEHÍCULO
+' ============================================================
+
+abstract class Vehiculo {
+    - placa: String
+    - nombreConductor: String
+    - identificacionConductor: String
+    - horaIngreso: LocalDateTime
+    - espacioAsignado: String
+    - estado: EstadoVehiculo
+    + Vehiculo(placa: String, conductor: String, id: String, horaIngreso: LocalDateTime, espacioAsignado: String)
+    + getPlaca(): String
+    + getNombreConductor(): String
+    + getIdentificacionConductor(): String
+    + getHoraIngreso(): LocalDateTime
+    + getEspacioAsignado(): String
+    + getEstado(): EstadoVehiculo
+    + setPlaca(placa: String): void
+    + setNombreConductor(nombre: String): void
+    + setIdentificacionConductor(id: String): void
+    + setHoraIngreso(hora: LocalDateTime): void
+    + setEspacioAsignado(espacio: String): void
+    + setEstado(estado: EstadoVehiculo): void
+    + {abstract} getTipoVehiculo(): TipoVehiculo
+    + getTipoDescripcion(): String
+}
+
+class Carro {
+    + Carro(placa: String, conductor: String, id: String, horaIngreso: LocalDateTime, espacioAsignado: String)
+    + Carro(placa: String, conductor: String, id: String)
+    + getTipoVehiculo(): TipoVehiculo
+}
+
+class Moto {
+    - cilindraje: int
+    + Moto(placa: String, conductor: String, id: String, horaIngreso: LocalDateTime, espacioAsignado: String, cilindraje: int)
+    + Moto(placa: String, conductor: String, id: String, cilindraje: int)
+    + getCilindraje(): int
+    + setCilindraje(cilindraje: int): void
+    + getTipoVehiculo(): TipoVehiculo
+}
+
+class Bicicleta {
+    + Bicicleta(placa: String, conductor: String, id: String, horaIngreso: LocalDateTime, espacioAsignado: String)
+    + Bicicleta(placa: String, conductor: String, id: String)
+    + getTipoVehiculo(): TipoVehiculo
+}
+
+Vehiculo <|-- Carro
+Vehiculo <|-- Moto
+Vehiculo <|-- Bicicleta
+
+' ============================================================
+'  ESPACIO DE PARQUEADERO
+' ============================================================
+
+class EspacioParqueadero {
+    - codigo: String
+    - tipoEspacio: TipoEspacio
+    - estado: EstadoEspacio
+    - vehiculoAsignado: Vehiculo
+    + EspacioParqueadero(codigo: String, tipoEspacio: TipoEspacio)
+    + getCodigo(): String
+    + getTipoEspacio(): TipoEspacio
+    + getEstado(): EstadoEspacio
+    + getVehiculoAsignado(): Vehiculo
+    + setCodigo(codigo: String): void
+    + setTipoEspacio(tipo: TipoEspacio): void
+    + setEstado(estado: EstadoEspacio): void
+    + setVehiculoAsignado(vehiculo: Vehiculo): void
+    + estaDisponible(): boolean
+}
+
+' ============================================================
+'  JERARQUÍA DE USUARIO
+' ============================================================
+
+abstract class Usuario {
+    - nombre: String
+    - identificacion: String
+    + Usuario(nombre: String, identificacion: String)
+    + getNombre(): String
+    + getIdentificacion(): String
+    + {abstract} getTipoUsuario(): String
+    + {abstract} tieneDescuento(): boolean
+}
+
+class Estudiante {
+    + Estudiante(nombre: String, identificacion: String)
+    + getTipoUsuario(): String
+    + tieneDescuento(): boolean
+}
+
+class Docente {
+    + Docente(nombre: String, identificacion: String)
+    + getTipoUsuario(): String
+    + tieneDescuento(): boolean
+}
+
+class Administrativo {
+    + Administrativo(nombre: String, identificacion: String)
+    + getTipoUsuario(): String
+    + tieneDescuento(): boolean
+}
+
+class Visitante {
+    + Visitante(nombre: String, identificacion: String)
+    + getTipoUsuario(): String
+    + tieneDescuento(): boolean
+}
+
+Usuario <|-- Estudiante
+Usuario <|-- Docente
+Usuario <|-- Administrativo
+Usuario <|-- Visitante
+
+' ============================================================
+'  TARIFA
+' ============================================================
+
+class Tarifa {
+    - tipoVehiculo: TipoVehiculo
+    - valorPorHora: double
+    - descuento: double
+    + Tarifa(tipoVehiculo: TipoVehiculo, valorPorHora: double, descuento: double)
+    + getTipoVehiculo(): TipoVehiculo
+    + getValorPorHora(): double
+    + getDescuento(): double
+    + calcularValor(horas: double, tieneDescuento: boolean): double
+}
+
+' ============================================================
+'  CLASES AUXILIARES UI / SISTEMA
+' ============================================================
+
+class UsuarioSistema {
+    - nombreUsuario: String
+    - contrasena: String
+    - rol: RolSistema
+    + UsuarioSistema(nombreUsuario: String, contrasena: String, rol: RolSistema)
+    + getNombreUsuario(): String
+    + getRol(): RolSistema
+    + setNombreUsuario(nombre: String): void
+    + setContrasena(pass: String): void
+    + setRol(rol: RolSistema): void
+    + autenticar(usuario: String, pass: String): boolean
+}
+
+class RegistroSalida {
+    - vehiculo: Vehiculo
+    - horaIngreso: LocalDateTime
+    - horaSalida: LocalDateTime
+    - minutosEstadia: long
+    - tarifaBase: double
+    - descuentoAplicado: double
+    - totalCobrado: double
+    + RegistroSalida(...)
+    + generarRecibo(): String
+}
+
+class GestorReportes {
+    - parqueadero: Parqueadero
+    + GestorReportes(parqueadero: Parqueadero)
+    + generarResumenDia(): String
+    + calcularIngresosTotales(): double
+}
+
+' ============================================================
+'  SERVICIO — PARQUEADERO (Raíz de composición)
+' ============================================================
+
+class Parqueadero {
+    - nombre: String
+    - espacios: ArrayList<EspacioParqueadero>
+    - vehiculos: ArrayList<Vehiculo>
+    - usuarios: ArrayList<Usuario>
+    - tarifas: ArrayList<Tarifa>
+    - historialDia: ArrayList<RegistroSalida>
+    - usuariosSistema: ArrayList<UsuarioSistema>
+    
+    + Parqueadero(nombre: String)
+    + registrarIngreso(placa: String, tipo: TipoVehiculo, conductor: String, id: String): void
+    + registrarSalida(placa: String): double
+    + consultarVehiculosDentro(): void
+    + consultarEspaciosDisponibles(): void
+    + generarReporte(): void
+    + agregarEspacio(codigo: String, tipo: TipoEspacio): void
+    + deshabilitarEspacio(codigo: String): void
+    + configurarTarifa(tipo: TipoVehiculo, valor: double, descuento: double): void
+    + registrarUsuario(nombre: String, id: String, tipo: String): void
+    
+    - buscarEspacioDisponible(tipo: TipoEspacio): EspacioParqueadero
+    - buscarVehiculo(placa: String): Vehiculo
+    - calcularHoras(horaIngreso: LocalDateTime): double
+    
+    + getEspacios(): ArrayList<EspacioParqueadero>
+    + getVehiculos(): ArrayList<Vehiculo>
+    + getUsuarios(): ArrayList<Usuario>
+    + getTarifas(): ArrayList<Tarifa>
+    + getHistorialDia(): ArrayList<RegistroSalida>
+    + consultarVehiculosActivos(): ArrayList<Vehiculo>
+    + obtenerEspaciosDisponiblesList(): ArrayList<EspacioParqueadero>
+    + autenticarUsuarioSistema(user: String, pass: String): UsuarioSistema
+}
+
+' ============================================================
+'  RELACIONES Y DEPENDENCIAS
+' ============================================================
+
+Parqueadero "1" *-- "*" EspacioParqueadero : contiene
+Parqueadero "1" *-- "*" Vehiculo : contiene activos
+Parqueadero "1" *-- "*" Usuario : contiene autorizados
+Parqueadero "1" *-- "*" Tarifa : contiene
+Parqueadero "1" *-- "*" RegistroSalida : mantiene historial
+Parqueadero "1" *-- "*" UsuarioSistema : gestiona accesos
+
+GestorReportes "1" --> "1" Parqueadero : consulta
+EspacioParqueadero "1" o-- "0..1" Vehiculo : aloja
+
+Vehiculo --> EstadoVehiculo
+Vehiculo --> TipoVehiculo
+EspacioParqueadero --> EstadoEspacio
+EspacioParqueadero --> TipoEspacio
+Tarifa --> TipoVehiculo
+UsuarioSistema --> RolSistema
+RegistroSalida --> Vehiculo
+
+@enduml
